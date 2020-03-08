@@ -1,26 +1,48 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux';
 
-function App() {
+import { fetchData } from './actions';
+import './styles.scss';
+
+const App = (props) => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container'>
+      <div className='text'>Redux Thunk Examples</div>
+      <div className='button' onClick={() => props.fetchData()}>
+        <div className='button-text'>
+          {
+            props.appData.isFetching ? <div>Loading</div> : <div>Load data</div>
+          }
+          {
+            props.appData.data.length ? (
+              props.appData.data.map((person, i) => {
+                return <div key={i} >
+                  <div>Name: {person.name}</div>
+                  <div>Age: {person.age}</div>
+                </div>
+              })
+            ) : null
+          }
+        </div>
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    appData: state.appData
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchData: () => dispatch(fetchData())
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)

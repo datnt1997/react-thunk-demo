@@ -1,0 +1,18 @@
+.container {
+  margin-top: 100px;
+  .text {
+    text-align: center;
+  }
+  .button {
+    cursor: pointer;
+    display: flex;
+    min-height: 60px;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+    background-color: #0b7eff;
+    .button-text {
+      color: white;
+    }
+  }
+}
